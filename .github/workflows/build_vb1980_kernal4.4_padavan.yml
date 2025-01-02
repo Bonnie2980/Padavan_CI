@@ -32,6 +32,7 @@ on:
         - JCG_Y2
         - JDCloud_1
         - JDCloud_Luban
+        - KONKA_KOMI-A8
         - Lenovo_NEWIFI2
         - Linksys_EA7500
         - Motorola_MR2600
@@ -183,6 +184,9 @@ jobs:
             },
             "JDCloud_Luban": {
               "model": "JDCLOUD-RE-CP-02"
+            },
+            "KONKA_KOMI-A8": {
+              "model": "KOMI-A8"
             },
             "Lenovo_NEWIFI2": {
               "model": "NEWIFI"
