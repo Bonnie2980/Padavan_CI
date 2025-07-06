@@ -10,7 +10,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20250115'
+        default: '20250706'
 env:
   REPOSITORY_URL: https://github.com/vb1980/padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
@@ -51,10 +51,10 @@ jobs:
         sed -i '/cp -f/d' Makefile
     - name: Extract toolchain
       run: |
-        cp -f toolchain/mipsel-linux-uclibc-gcc10-uClibcng1050.tar.xz $WORK_PATH
+        cp -f toolchain/mipsel-linux-uclibc-gcc10-uClibcng1052.tar.xz $WORK_PATH
         cd $WORK_PATH
         mkdir -p toolchain-mipsel/toolchain-4.4.x
-        tar -Jxvf mipsel-linux-uclibc-gcc10-uClibcng1050.tar.xz -C toolchain-mipsel/toolchain-4.4.x
+        tar -Jxvf mipsel-linux-uclibc-gcc10-uClibcng1052.tar.xz -C toolchain-mipsel/toolchain-4.4.x
     - name: Parse json string of customization configs
       run: |
         echo "lanip=${{fromJson(github.event.inputs.customization).lanip}}" >> $GITHUB_ENV
