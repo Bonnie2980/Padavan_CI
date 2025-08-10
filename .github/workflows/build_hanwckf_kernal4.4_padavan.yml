@@ -99,7 +99,7 @@ jobs:
             "Xiaoyu_C5": {
               "model": "XY-C1"
             },
-            "KONKA_KOMI-A8": {
+            "Konka_KOMI-A8": {
               "model": "KOMI-A8"
             },
             ".*": {
