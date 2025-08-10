@@ -99,6 +99,9 @@ jobs:
             "Xiaoyu_C5": {
               "model": "XY-C1"
             },
+            "KONKA_KOMI-A8": {
+              "model": "KOMI-A8"
+            },
             ".*": {
               "model": "K2P"
             }
@@ -122,6 +125,11 @@ jobs:
         mkdir -p toolchain-4.4.x
         wget $TOOLCHAIN_URL
         tar -xf mipsel-linux-uclibc.tar.xz -C toolchain-4.4.x
+    - name: Add KOMI-A8 support
+      run: |
+        cp -f komi-a8/komi-a8.dts $WORK_PATH/trunk/linux-4.4.x/arch/mips/boot/dts/ralink
+        cp -f komi-a8/KOMI-A8.config $WORK_PATH/trunk/configs/templates
+        cp -rf komi-a8/KOMI-A8 $WORK_PATH/trunk/configs/boards
     - name: Set environment variables
       run: |
         git config --global log.date format:'%Y%m%d'
