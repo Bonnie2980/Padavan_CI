@@ -24,6 +24,7 @@ on:
         - Xiaoyu_C1
         - Xiaoyu_C3
         - Xiaoyu_C5
+        - KONKA_KOMI-A8
       uploadanon:
         type: boolean
         description: 'upload firmware to anonfiles'
@@ -99,7 +100,7 @@ jobs:
             "Xiaoyu_C5": {
               "model": "XY-C1"
             },
-            "Konka_KOMI-A8": {
+            "KONKA_KOMI-A8": {
               "model": "KOMI-A8"
             },
             ".*": {
