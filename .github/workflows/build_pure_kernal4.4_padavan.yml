@@ -11,7 +11,7 @@ on:
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"n","v2ray":"n","xray":"y","trojan":"n","ssobfs":"n","dnsforwarder":"n","adguardhome":"n","smartdns":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","aldrive":"n","sqm":"n","mentohust":"n"}'
+        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"n","v2ray":"n","xray":"y","trojan":"n","ssobfs":"n","dnsforwarder":"n","adguardhome":"n","smartdns":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","aldrive":"n","sqm":"n"}'
       firmwarever:
         description: 'firmware''s version'
         required: true
@@ -82,7 +82,6 @@ jobs:
         echo "wireguard=${{fromJson(github.event.inputs.plugins).wireguard}}" >> $GITHUB_ENV
         echo "aldrive=${{fromJson(github.event.inputs.plugins).aldrive}}" >> $GITHUB_ENV
         echo "sqm=${{fromJson(github.event.inputs.plugins).sqm}}" >> $GITHUB_ENV
-        echo "mentohust=${{fromJson(github.event.inputs.plugins).mentohust}}" >> $GITHUB_ENV
     - name: Custom config
       run: |
         cd $WORK_PATH/trunk
@@ -110,9 +109,6 @@ jobs:
         sed -i '/CONFIG_FIRMWARE_INCLUDE_ALDRIVER/d' .config #删除配置项阿里云盘
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNS/d' .config #删除配置项smartdns
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SQM/d' .config #删除配置项sqm
-        #校园网相关开始
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_MENTOHUST/d' .config #删除配置项MENTOHUST
-        #校园网相关结束
         sed -i 's/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=n/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config
         ######################################################################
         #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
@@ -143,9 +139,6 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_ALDRIVER=${{env.aldrive}}" >> .config #阿里云盘
         echo "CONFIG_FIRMWARE_INCLUDE_SQM=${{env.sqm}}" >> .config #SQM
         #
-        #校园网相关开始
-        echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=${{env.mentohust}}" >> .config #MENTOHUST
-        #校园网相关结束
         #########################################################################################
         #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
         #格式如下：
