@@ -1,4 +1,4 @@
-name: Build MeIsReallyBa's Kernal4.4 Padavan
+name: Build Pure Kernal4.4 Padavan
 
 on:
   workflow_dispatch:
