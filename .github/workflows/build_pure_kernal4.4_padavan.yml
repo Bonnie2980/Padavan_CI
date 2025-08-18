@@ -11,7 +11,7 @@ on:
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"n","v2ray":"n","xray":"y","trojan":"n","ssobfs":"n","dnsforwarder":"n","adguardhome":"n","smartdns":"n","aliddns":"n","aldrive":"n","sqm":"n"}'
+        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"n","v2ray":"n","xray":"y","trojan":"n","ssobfs":"n","dnsforwarder":"n","adguardhome":"n","aliddns":"n","aldrive":"n","sqm":"n"}'
       firmwarever:
         description: 'firmware''s version'
         required: true
@@ -75,7 +75,6 @@ jobs:
         echo "ssobfs=${{fromJson(github.event.inputs.plugins).ssobfs}}" >> $GITHUB_ENV
         echo "dnsforwarder=${{fromJson(github.event.inputs.plugins).dnsforwarder}}" >> $GITHUB_ENV
         echo "adguardhome=${{fromJson(github.event.inputs.plugins).adguardhome}}" >> $GITHUB_ENV
-        echo "smartdns=${{fromJson(github.event.inputs.plugins).smartdns}}" >> $GITHUB_ENV
         echo "aliddns=${{fromJson(github.event.inputs.plugins).aliddns}}" >> $GITHUB_ENV
         echo "aldrive=${{fromJson(github.event.inputs.plugins).aldrive}}" >> $GITHUB_ENV
         echo "sqm=${{fromJson(github.event.inputs.plugins).sqm}}" >> $GITHUB_ENV
@@ -99,7 +98,6 @@ jobs:
         sed -i '/CONFIG_FIRMWARE_INCLUDE_ALIDDNS/d' .config #删除配置项阿里DDNS
         sed -i '/CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME/d' .config #删除配置项adguardhome
         sed -i '/CONFIG_FIRMWARE_INCLUDE_ALDRIVER/d' .config #删除配置项阿里云盘
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNS/d' .config #删除配置项smartdns
         sed -i '/CONFIG_FIRMWARE_INCLUDE_SQM/d' .config #删除配置项sqm
         sed -i 's/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=n/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config
         ######################################################################
@@ -119,7 +117,6 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER=${{env.dnsforwarder}}" >> .config #dnsforwarder
         #
         echo "CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME=${{env.adguardhome}}" >> .config #adguardhome
-        echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNS=${{env.smartdns}}" >> .config #smartdns
         #
         echo "CONFIG_FIRMWARE_INCLUDE_ALIDDNS=${{env.aliddns}}" >> .config #阿里DDNS
         #
