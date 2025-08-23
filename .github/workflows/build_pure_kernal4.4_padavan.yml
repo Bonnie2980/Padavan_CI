@@ -19,7 +19,6 @@ on:
         default: '20250818'
 env:
   REPOSITORY_URL: https://github.com/Bonnie2980/meisreallyba_padavan-4.4.git
-  TOOLCHAIN_URL: https://github.com/hanwckf/padavan-toolchain/releases/download/linux-4.4-v1.0/mipsel-linux-uclibc.tar.xz
   WORK_PATH: /opt/padavan-4.4
   TIME_ZONE: Asia/Shanghai
   FIRMWARE_DATEPREFIX: $(date +"%Y%m%d")
@@ -63,10 +62,12 @@ jobs:
     - name: Clone source code
       run: |
         git clone --depth=1 $REPOSITORY_URL $WORK_PATH
+    - name: Extract toolchain
+      run: |
         cd $WORK_PATH/toolchain-mipsel
         mkdir -p toolchain-4.4.x
-        wget $TOOLCHAIN_URL
-        tar -xf mipsel-linux-uclibc.tar.xz -C toolchain-4.4.x
+        cp -f toolchain/hanwckf_mipsel-linux-uclibc.tar.xz ./
+        tar -xf hanwckf_mipsel-linux-uclibc.tar.xz -C toolchain-4.4.x
     - name: Parse json string of include plugins
       run: |
         echo "aliddns=${{fromJson(github.event.inputs.plugins).aliddns}}" >> $GITHUB_ENV
