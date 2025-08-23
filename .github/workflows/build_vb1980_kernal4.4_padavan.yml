@@ -46,6 +46,7 @@ on:
         - Raisecom_MSG1500_X.00
         - Raisecom_MSG1500_Z.00
         - Redmi_AC2100
+        - Ruijie_EW1800GX-Pro
         - Skspruce_WIA3300-10
         - SIM_AX1800T
         - Xiaomi_4
@@ -66,11 +67,11 @@ on:
         - ZTE_E8820V2
         - ZTE_E8820S
         - ZTT_RX6000
-        default: SIM_AX1800T
+        default: Ruijie_EW1800GX-Pro
       plugins:
         description: 'json format string of include configs'
         required: true
-        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"y","v2ray":"n","xray":"y","trojan":"y","ssobfs":"y","dnsforwarder":"n","adbyby":"n","adguardhome":"n","smartdns":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","frpc":"y","aldrive":"n","sqm":"y","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
+        default: '{"vpnsvr":"n","vpncli":"n","vpncmd":"n","ss":"n","v2ray":"n","xray":"y","trojan":"y","ssobfs":"y","dnsforwarder":"n","adbyby":"n","adguardhome":"n","smartdns":"n","aliddns":"n","zerotier":"n","ddnsto":"n","wireguard":"n","frpc":"n","aldrive":"n","sqm":"n","mentohust":"n","scutclient":"n","njitclient":"n","minieap":"n","dogcom":"n"}'
       usexraymin:
         type: boolean
         description: 'use streamlined xray'
@@ -82,7 +83,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20240403'
+        default: '20250823'
       uploadanon:
         type: boolean
         description: 'upload firmware to anonfiles'
@@ -226,6 +227,9 @@ jobs:
             },
             "Redmi_AC2100": {
               "model": "RM2100"
+            },
+            "Ruijie_EW1800GX-Pro": {
+              "model": "EW1800GX-Pro"
             },
             "Skspruce_WIA3300-10": {
               "model": "WIA3300-10"
