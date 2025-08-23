@@ -64,9 +64,9 @@ jobs:
         git clone -b dev --depth=1 $REPOSITORY_URL $WORK_PATH
     - name: Extract toolchain
       run: |
+        cp -f toolchain/hanwckf_mipsel-linux-uclibc.tar.xz $WORK_PATH/toolchain-mipsel
         cd $WORK_PATH/toolchain-mipsel
         mkdir -p toolchain-4.4.x
-        cp -f toolchain/hanwckf_mipsel-linux-uclibc.tar.xz ./
         tar -xf hanwckf_mipsel-linux-uclibc.tar.xz -C toolchain-4.4.x
     - name: Parse json string of include plugins
       run: |
