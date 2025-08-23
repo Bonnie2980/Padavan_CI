@@ -61,7 +61,7 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
-        git clone --depth=1 $REPOSITORY_URL $WORK_PATH
+        git clone -b dev --depth=1 $REPOSITORY_URL $WORK_PATH
     - name: Extract toolchain
       run: |
         cd $WORK_PATH/toolchain-mipsel
