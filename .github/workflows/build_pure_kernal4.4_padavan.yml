@@ -8,15 +8,18 @@ on:
         description: 'target to compile'
         options:
         - KONKA_KOMI-A8
-        - Ruijie_EW1800GX-Pro
       plugins:
         description: 'json format string of include configs'
         required: true
         default: '{"aliddns":"n","aldrive":"n","sqm":"n"}'
+      customization:
+        description: 'json format string of customized configs'
+        required: true
+        default: '{"lanip":"192.168.2.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"","wifi5gssid":"","wifi2gpsk":"","wifi5gpsk":""}'
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20250818'
+        default: '20250827'
 env:
   REPOSITORY_URL: https://github.com/Bonnie2980/meisreallyba_padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
@@ -40,9 +43,6 @@ jobs:
             "KONKA_KOMI-A8": {
               "model": "KOMI-A8"
             },
-            "Ruijie_EW1800GX-Pro": {
-              "model": "EW1800GX-Pro"
-            },
             ".*": {
               "model": "KOMI-A8"
             }
@@ -61,13 +61,31 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
-        git clone -b dev --depth=1 $REPOSITORY_URL $WORK_PATH
+        git clone -b main --depth=1 $REPOSITORY_URL $WORK_PATH
     - name: Extract toolchain
       run: |
         cp -f toolchain/hanwckf_mipsel-linux-uclibc.tar.xz $WORK_PATH/toolchain-mipsel
         cd $WORK_PATH/toolchain-mipsel
         mkdir -p toolchain-4.4.x
         tar -xf hanwckf_mipsel-linux-uclibc.tar.xz -C toolchain-4.4.x
+    - name: Parse json string of customization configs
+      run: |
+        echo "lanip=${{fromJson(github.event.inputs.customization).lanip}}" >> $GITHUB_ENV
+        echo "signaccount=${{fromJson(github.event.inputs.customization).signaccount}}" >> $GITHUB_ENV
+        echo "signpassword=${{fromJson(github.event.inputs.customization).signpassword}}" >> $GITHUB_ENV
+        echo "wifi2gssid=${{fromJson(github.event.inputs.customization).wifi2gssid}}" >> $GITHUB_ENV
+        echo "wifi5gssid=${{fromJson(github.event.inputs.customization).wifi5gssid}}" >> $GITHUB_ENV
+        echo "wifi2gpsk=${{fromJson(github.event.inputs.customization).wifi2gpsk}}" >> $GITHUB_ENV
+        echo "wifi5gpsk=${{fromJson(github.event.inputs.customization).wifi5gpsk}}" >> $GITHUB_ENV
+    - name: Customization
+      run: |
+        cd $WORK_PATH/trunk
+        sudo chmod +x setlanip.sh
+        sudo chmod +x setaccount.sh
+        sudo chmod +x setwifi.sh
+        bash ./setlanip.sh ${{ env.DEFAULT_FILE }} ./user/www/n56u_rainbow/Restarting.asp ./user/www/dict/CN.dict ${{ env.lanip }}
+        bash ./setaccount.sh ${{ env.signaccount }} ${{ env.signpassword }} ./user/shared/defaults.h
+        bash ./setwifi.sh ${{ env.wifi2gssid }} ${{ env.wifi5gssid }} ${{ env.wifi2gpsk }} ${{ env.wifi5gpsk }} ./user/shared/defaults.h
     - name: Parse json string of include plugins
       run: |
         echo "aliddns=${{fromJson(github.event.inputs.plugins).aliddns}}" >> $GITHUB_ENV
