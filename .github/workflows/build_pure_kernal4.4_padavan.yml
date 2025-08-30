@@ -8,6 +8,7 @@ on:
         description: 'target to compile'
         options:
         - KONKA_KOMI-A8
+        - MAIPU_MPAX18
       plugins:
         description: 'json format string of include configs'
         required: true
@@ -42,6 +43,9 @@ jobs:
           {
             "KONKA_KOMI-A8": {
               "model": "KOMI-A8"
+            },
+            "MAIPU_MPAX18": {
+              "model": "MAIPU-MPAX18"
             },
             ".*": {
               "model": "KOMI-A8"
