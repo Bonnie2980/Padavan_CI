@@ -122,7 +122,7 @@ jobs:
         if [ "${{ env.gpio3active }}" = "GPIO_ACTIVE_LOW" ] ; then
         echo "gpio3activealias=L" >> $GITHUB_ENV
         fi
-        echo "firmwarever=${{ env.gpiono1 }}${{ env.gpio1active }}${{ env.gpiono2 }}${{ env.gpio2active }}${{ env.gpiono3 }}${{ env.gpio3active }}" >> $GITHUB_ENV
+        echo "firmwarever=${{ env.gpiono1 }}${{ env.gpio1activealias }}${{ env.gpiono2 }}${{ env.gpio2activealias }}${{ env.gpiono3 }}${{ env.gpio3activealias }}" >> $GITHUB_ENV
     - name: Parse json string of customization configs
       run: |
         echo "lanip=${{fromJson(github.event.inputs.customization).lanip}}" >> $GITHUB_ENV
