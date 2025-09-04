@@ -98,26 +98,26 @@ jobs:
       run: |
         echo "gpiono1=${{fromJson(matrix.gpio).gpiono1}}" >> $GITHUB_ENV
         echo "gpio1active=${{fromJson(matrix.gpio).gpio1active}}" >> $GITHUB_ENV
-        if [ ${{ env.gpio1active }} == "GPIO_ACTIVE_HIGH" ] ; then
+        if [ ${{ env.gpio1active }} = "GPIO_ACTIVE_HIGH" ] ; then
         echo "gpio1activealias=H" >> $GITHUB_ENV
         fi
-        if [ ${{ env.gpio2active }} == "GPIO_ACTIVE_LOW" ] ; then
+        if [ ${{ env.gpio2active }} = "GPIO_ACTIVE_LOW" ] ; then
         echo "gpio2activealias=H" >> $GITHUB_ENV
         fi
         echo "gpiono2=${{fromJson(matrix.gpio).gpiono2}}" >> $GITHUB_ENV
         echo "gpio2active=${{fromJson(matrix.gpio).gpio2active}}" >> $GITHUB_ENV
-        if [ ${{ env.gpio2active }} == "GPIO_ACTIVE_LOW" ] ; then
+        if [ ${{ env.gpio2active }} = "GPIO_ACTIVE_LOW" ] ; then
         echo "gpio2activealias=L" >> $GITHUB_ENV
         fi
-        if [ ${{ env.gpio2active }} == "GPIO_ACTIVE_HIGH" ] ; then
+        if [ ${{ env.gpio2active }} = "GPIO_ACTIVE_HIGH" ] ; then
         echo "gpio2activealias=H" >> $GITHUB_ENV
         fi
         echo "gpiono3=${{fromJson(matrix.gpio).gpiono3}}" >> $GITHUB_ENV
         echo "gpio3active=${{fromJson(matrix.gpio).gpio3active}}" >> $GITHUB_ENV
-        if [ ${{ env.gpio3active }} == "GPIO_ACTIVE_HIGH" ] ; then
+        if [ ${{ env.gpio3active }} = "GPIO_ACTIVE_HIGH" ] ; then
         echo "gpio3activealias=H" >> $GITHUB_ENV
         fi
-        if [ ${{ env.gpio3active }} == "GPIO_ACTIVE_LOW" ] ; then
+        if [ ${{ env.gpio3active }} = "GPIO_ACTIVE_LOW" ] ; then
         echo "gpio3activealias=L" >> $GITHUB_ENV
         fi
         echo "firmwarever=${{ env.gpiono1 }}${{ env.gpio1activealias }}${{ env.gpiono2 }}${{ env.gpio2activealias }}${{ env.gpiono3 }}${{ env.gpio3activealias }}" >> $GITHUB_ENV
