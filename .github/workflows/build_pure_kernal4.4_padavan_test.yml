@@ -1,4 +1,4 @@
-name: Build Pure Kernal4.4 Padavan
+name: Build Pure Kernal4.4 Padavan for Test GPIO
 
 on:
   workflow_dispatch:
@@ -18,8 +18,6 @@ on:
         description: 'json format string of customized configs'
         required: true
         default: '{"lanip":"192.168.9.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"","wifi5gssid":"","wifi2gpsk":"","wifi5gpsk":""}'
-      gpiojson:
-        type: string
 env:
   REPOSITORY_URL: https://github.com/Bonnie2980/meisreallyba_padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
@@ -34,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [
+        gpio: [
   {"gpiono1": "15", "gpio1active": "GPIO_ACTIVE_LOW", "gpiono2": "6", "gpio2active": "GPIO_ACTIVE_LOW", "gpiono3": "7", "gpio3active": "GPIO_ACTIVE_LOW"},
   {"gpiono1": "15", "gpio1active": "GPIO_ACTIVE_LOW", "gpiono2": "6", "gpio2active": "GPIO_ACTIVE_LOW", "gpiono3": "7", "gpio3active": "GPIO_ACTIVE_HIGH"},
   {"gpiono1": "15", "gpio1active": "GPIO_ACTIVE_LOW", "gpiono2": "6", "gpio2active": "GPIO_ACTIVE_HIGH", "gpiono3": "7", "gpio3active": "GPIO_ACTIVE_LOW"},
@@ -117,9 +115,9 @@ jobs:
     - name: Clone source code
       run: |
         #git clone -b main --depth=1 $REPOSITORY_URL $WORK_PATH
-        echo ${{ matrix.target }}
-        echo ${{fromJson({{ matrix.target }}).gpiono1}}
-        echo ${{fromJson({{ matrix.target }}).gpio1active}}
+        echo ${{ matrix.gpio }}
+        echo ${{ matrix.gpio }}.gpiono1
+        echo ${{ matrix.gpio }}.gpio1active
     - name: Extract toolchain
       run: |
         #cp -f toolchain/hanwckf_mipsel-linux-uclibc.tar.xz $WORK_PATH/toolchain-mipsel
