@@ -118,8 +118,8 @@ jobs:
       run: |
         #git clone -b main --depth=1 $REPOSITORY_URL $WORK_PATH
         echo ${{ matrix.target }}
-        echo ${{fromJson(${{ matrix.target }}).gpiono1}
-        echo ${{fromJson(${{ matrix.target }}).gpio1active}
+        echo ${{fromJson(${{ matrix.target }}).gpiono1}}
+        echo ${{fromJson(${{ matrix.target }}).gpio1active}}
     - name: Extract toolchain
       run: |
         #cp -f toolchain/hanwckf_mipsel-linux-uclibc.tar.xz $WORK_PATH/toolchain-mipsel
