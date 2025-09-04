@@ -33,22 +33,22 @@ jobs:
       fail-fast: false
       matrix:
         gpio: [
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
-  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}"
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"15\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"15\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"15\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"15\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"15\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"15\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"15\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"15\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"15\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"15\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"15\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"15\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"15\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"15\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"15\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"6\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"15\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}"
 ]
     steps:
     - uses: actions/checkout@main
