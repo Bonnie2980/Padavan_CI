@@ -32,9 +32,29 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        gpio: [ "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}"]
+        gpio: [
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"6\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"7\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_LOW\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_LOW\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_LOW\"}",
+  "{\"gpiono1\":\"15\",\"gpio1active\":\"GPIO_ACTIVE_HIGH\",\"gpiono2\":\"7\",\"gpio2active\":\"GPIO_ACTIVE_HIGH\",\"gpiono3\":\"6\",\"gpio3active\":\"GPIO_ACTIVE_HIGH\"}"
+]
     steps:
     - uses: actions/checkout@v4
+    - uses: hendrikmuhs/ccache-action@main
+        with:
+          key: ${{ github.event.inputs.target }}
     - uses: Bonnie2980/variable-mapper@master
       id: export
       with:
@@ -65,117 +85,142 @@ jobs:
         sudo timedatectl set-timezone "$TIME_ZONE"
     - name: Clone source code
       run: |
-        #git clone -b main --depth=1 $REPOSITORY_URL $WORK_PATH
-        echo ${{ matrix.gpio }}
-        echo ${{fromJson(matrix.gpio).gpiono1}}
+        git clone -b main --depth=1 $REPOSITORY_URL $WORK_PATH
     - name: Extract toolchain
       run: |
-        #cp -f toolchain/hanwckf_mipsel-linux-uclibc.tar.xz $WORK_PATH/toolchain-mipsel
-        #cd $WORK_PATH/toolchain-mipsel
-        #mkdir -p toolchain-4.4.x
-        #tar -xf hanwckf_mipsel-linux-uclibc.tar.xz -C toolchain-4.4.x
+        cp -f toolchain/hanwckf_mipsel-linux-uclibc.tar.xz $WORK_PATH/toolchain-mipsel
+        cd $WORK_PATH/toolchain-mipsel
+        mkdir -p toolchain-4.4.x
+        tar -xf hanwckf_mipsel-linux-uclibc.tar.xz -C toolchain-4.4.x
+    - name: Parse json string of gpio
+      run: |
+        echo "gpiono1=${{fromJson(matrix.gpio).gpiono1}}" >> $GITHUB_ENV
+        echo "gpio1active=${{fromJson(matrix.gpio).gpio1active}}" >> $GITHUB_ENV
+        if [ ${{ env.gpio1active }} == "GPIO_ACTIVE_HIGH" ] ; then
+        echo "gpio1activealias=H" >> $GITHUB_ENV
+        fi
+        if [ ${{ env.gpio2active }} == "GPIO_ACTIVE_LOW" ] ; then
+        echo "gpio2activealias=H" >> $GITHUB_ENV
+        fi
+        echo "gpiono2=${{fromJson(matrix.gpio).gpiono2}}" >> $GITHUB_ENV
+        echo "gpio2active=${{fromJson(matrix.gpio).gpio2active}}" >> $GITHUB_ENV
+        if [ ${{ env.gpio2active }} == "GPIO_ACTIVE_LOW" ] ; then
+        echo "gpio2activealias=L" >> $GITHUB_ENV
+        fi
+        if [ ${{ env.gpio2active }} == "GPIO_ACTIVE_HIGH" ] ; then
+        echo "gpio2activealias=H" >> $GITHUB_ENV
+        fi
+        echo "gpiono3=${{fromJson(matrix.gpio).gpiono3}}" >> $GITHUB_ENV
+        echo "gpio3active=${{fromJson(matrix.gpio).gpio3active}}" >> $GITHUB_ENV
+        if [ ${{ env.gpio3active }} == "GPIO_ACTIVE_HIGH" ] ; then
+        echo "gpio3activealias=H" >> $GITHUB_ENV
+        fi
+        if [ ${{ env.gpio3active }} == "GPIO_ACTIVE_LOW" ] ; then
+        echo "gpio3activealias=L" >> $GITHUB_ENV
+        fi
+        echo "firmwarever=${{ env.gpiono1 }}${{ env.gpio1activealias }}${{ env.gpiono2 }}${{ env.gpio2activealias }}${{ env.gpiono3 }}${{ env.gpio3activealias }}" >> $GITHUB_ENV
     - name: Parse json string of customization configs
       run: |
-        #echo "lanip=${{fromJson(github.event.inputs.customization).lanip}}" >> $GITHUB_ENV
-        #echo "signaccount=${{fromJson(github.event.inputs.customization).signaccount}}" >> $GITHUB_ENV
-        #echo "signpassword=${{fromJson(github.event.inputs.customization).signpassword}}" >> $GITHUB_ENV
-        #echo "wifi2gssid=${{fromJson(github.event.inputs.customization).wifi2gssid}}" >> $GITHUB_ENV
-        #echo "wifi5gssid=${{fromJson(github.event.inputs.customization).wifi5gssid}}" >> $GITHUB_ENV
-        #echo "wifi2gpsk=${{fromJson(github.event.inputs.customization).wifi2gpsk}}" >> $GITHUB_ENV
-        #echo "wifi5gpsk=${{fromJson(github.event.inputs.customization).wifi5gpsk}}" >> $GITHUB_ENV
+        echo "lanip=${{fromJson(github.event.inputs.customization).lanip}}" >> $GITHUB_ENV
+        echo "signaccount=${{fromJson(github.event.inputs.customization).signaccount}}" >> $GITHUB_ENV
+        echo "signpassword=${{fromJson(github.event.inputs.customization).signpassword}}" >> $GITHUB_ENV
+        echo "wifi2gssid=${{fromJson(github.event.inputs.customization).wifi2gssid}}" >> $GITHUB_ENV
+        echo "wifi5gssid=${{fromJson(github.event.inputs.customization).wifi5gssid}}" >> $GITHUB_ENV
+        echo "wifi2gpsk=${{fromJson(github.event.inputs.customization).wifi2gpsk}}" >> $GITHUB_ENV
+        echo "wifi5gpsk=${{fromJson(github.event.inputs.customization).wifi5gpsk}}" >> $GITHUB_ENV
     - name: Customization
       run: |
-        #cd $WORK_PATH/trunk
-        #bash ./setlanip.sh ./user/shared/defaults.h ./user/www/n56u_rainbow/Restarting.asp ./user/www/dict/CN.dict ${{ env.lanip }}
-        #bash ./setaccount.sh ${{ env.signaccount }} ${{ env.signpassword }} ./user/shared/defaults.h
-        #bash ./setwifi.sh ${{ env.wifi2gssid }} ${{ env.wifi5gssid }} ${{ env.wifi2gpsk }} ${{ env.wifi5gpsk }} ./user/shared/defaults.h
+        cd $WORK_PATH/trunk
+        bash ./setlanip.sh ./user/shared/defaults.h ./user/www/n56u_rainbow/Restarting.asp ./user/www/dict/CN.dict ${{ env.lanip }}
+        bash ./setaccount.sh ${{ env.signaccount }} ${{ env.signpassword }} ./user/shared/defaults.h
+        bash ./setwifi.sh ${{ env.wifi2gssid }} ${{ env.wifi5gssid }} ${{ env.wifi2gpsk }} ${{ env.wifi5gpsk }} ./user/shared/defaults.h
     - name: Set Led GPIO
       run: |
-        #cd $WORK_PATH/trunk/linux-4.4.x/arch/mips/boot/dts/ralink
+        cd $WORK_PATH/trunk/linux-4.4.x/arch/mips/boot/dts/ralink
         #ls maipu-mpax18.dts
-        #sed -i "21s/17/${{ github.event.inputs.powerledgpio }}/" ./maipu-mpax18.dts
-        #sed -i "21s/GPIO_ACTIVE_HIGH/${{ github.event.inputs.powerledgpiohighlow }}/" ./maipu-mpax18.dts
-        #sed -i "26s/15/${{ github.event.inputs.wanledgpio }}/" ./maipu-mpax18.dts
-        #sed -i "26s/GPIO_ACTIVE_LOW/${{ github.event.inputs.wanledgpiohighlow }}/" ./maipu-mpax18.dts
-        #sed -i "31s/13/${{ github.event.inputs.wifiledgpio }}/" ./maipu-mpax18.dts
-        #sed -i "31s/GPIO_ACTIVE_HIGH/${{ github.event.inputs.wifiledgpiohighlow }}/" ./maipu-mpax18.dts
+        sed -i "21s/17/${{ env.gpiono1 }}/" ./maipu-mpax18.dts
+        sed -i "21s/GPIO_ACTIVE_HIGH/${{ env.gpio1active }}/" ./maipu-mpax18.dts
+        sed -i "26s/15/${{ env.gpiono2 }}/" ./maipu-mpax18.dts
+        sed -i "26s/GPIO_ACTIVE_LOW/${{ env.gpio2active }}/" ./maipu-mpax18.dts
+        sed -i "31s/13/${{ env.gpiono3 }}/" ./maipu-mpax18.dts
+        sed -i "31s/GPIO_ACTIVE_HIGH/${{ env.gpio3active }}/" ./maipu-mpax18.dts
     - name: Parse json string of include plugins
       run: |
-        #echo "aliddns=${{fromJson(github.event.inputs.plugins).aliddns}}" >> $GITHUB_ENV
-        #echo "aldrive=${{fromJson(github.event.inputs.plugins).aldrive}}" >> $GITHUB_ENV
-        #echo "sqm=${{fromJson(github.event.inputs.plugins).sqm}}" >> $GITHUB_ENV
+        echo "aliddns=${{fromJson(github.event.inputs.plugins).aliddns}}" >> $GITHUB_ENV
+        echo "aldrive=${{fromJson(github.event.inputs.plugins).aldrive}}" >> $GITHUB_ENV
+        echo "sqm=${{fromJson(github.event.inputs.plugins).sqm}}" >> $GITHUB_ENV
     - name: Custom config
       run: |
-        #cd $WORK_PATH/trunk
-        #if [ ! -f configs/templates/${{ env.model }}.config ] ; then
-        #echo "configs/templates/${{ env.model }}.config not found"
-        #exit 1
-        #fi
-        #cp -f configs/templates/${{ env.model }}.config .config
+        cd $WORK_PATH/trunk
+        if [ ! -f configs/templates/${{ env.model }}.config ] ; then
+        echo "configs/templates/${{ env.model }}.config not found"
+        exit 1
+        fi
+        cp -f configs/templates/${{ env.model }}.config .config
         ################################################################################################
         #因不同型号配置功能不一样，所以先把配置项删除，如果你自己要添加其他的，也要写上删除这一条，切记！！！
         ################################################################################################
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_SERVER/d' .config #删除配置项SOFTETHERVPN
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CLIENT/d' .config #删除配置项SOFTETHERVPN
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CMD/d' .config #删除配置项SOFTETHERVPN   
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS/d' .config #删除配置项SS plus+
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SSSERVER/d' .config #删除配置项SS server
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER/d' .config #删除配置项DNSFORWARDER
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_ADBYBY/d' .config #删除配置项adbyby plus+
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_TUNSAFE/d' .config #删除配置项tunsafe
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_ALIDDNS/d' .config #删除配置项阿里DDNS
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SRELAY/d' .config #删除配置项srelay
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME/d' .config #删除配置项adguardhome
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' .config #删除配置项zerotier
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_DDNSTO/d' .config #删除配置项ddnsto
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_WIREGUARD/d' .config #删除配置项wireguard
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_ALDRIVER/d' .config #删除配置项阿里云盘
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNS/d' .config #删除配置项smartdns
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SQM/d' .config #删除配置项sqm
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_SERVER/d' .config #删除配置项SOFTETHERVPN
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CLIENT/d' .config #删除配置项SOFTETHERVPN
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SOFTETHERVPN_CMD/d' .config #删除配置项SOFTETHERVPN   
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS/d' .config #删除配置项SS plus+
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SSSERVER/d' .config #删除配置项SS server
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_DNSFORWARDER/d' .config #删除配置项DNSFORWARDER
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_ADBYBY/d' .config #删除配置项adbyby plus+
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_TUNSAFE/d' .config #删除配置项tunsafe
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_ALIDDNS/d' .config #删除配置项阿里DDNS
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SRELAY/d' .config #删除配置项srelay
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME/d' .config #删除配置项adguardhome
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' .config #删除配置项zerotier
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_DDNSTO/d' .config #删除配置项ddnsto
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_WIREGUARD/d' .config #删除配置项wireguard
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_ALDRIVER/d' .config #删除配置项阿里云盘
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNS/d' .config #删除配置项smartdns
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SQM/d' .config #删除配置项sqm
         #校园网相关开始
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_MENTOHUST/d' .config #删除配置项MENTOHUST
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_SCUTCLIENT/d' .config #删除配置项SCUTCLIENT
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_NJIT_CLIENT/d' .config
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_MINIEAP/d' .config
-        #sed -i '/CONFIG_FIRMWARE_INCLUDE_DOGCOM/d' .config
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_MENTOHUST/d' .config #删除配置项MENTOHUST
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_SCUTCLIENT/d' .config #删除配置项SCUTCLIENT
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_NJIT_CLIENT/d' .config
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_MINIEAP/d' .config
+        sed -i '/CONFIG_FIRMWARE_INCLUDE_DOGCOM/d' .config
         #校园网相关结束
-        #sed -i 's/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=n/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config
+        sed -i 's/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=n/CONFIG_FIRMWARE_INCLUDE_OPENSSL_EXE=y/g' .config
         ######################################################################
         #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
         ######################################################################
-        #echo "CONFIG_FIRMWARE_INCLUDE_ALIDDNS=${{env.aliddns}}" >> .config #阿里DDNS
-        #echo "CONFIG_FIRMWARE_INCLUDE_ALDRIVER=${{env.aldrive}}" >> .config #阿里云盘
-        #echo "CONFIG_FIRMWARE_INCLUDE_SQM=${{env.sqm}}" >> .config #SQM
+        echo "CONFIG_FIRMWARE_INCLUDE_ALIDDNS=${{env.aliddns}}" >> .config #阿里DDNS
+        echo "CONFIG_FIRMWARE_INCLUDE_ALDRIVER=${{env.aldrive}}" >> .config #阿里云盘
+        echo "CONFIG_FIRMWARE_INCLUDE_SQM=${{env.sqm}}" >> .config #SQM
         #########################################################################################
         #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
         #格式如下：
         #sed -i '/自定义项/d' .config
         #echo "自定义项=y" >> .config
-        #sed -i "s/FIRMWARE_BUILDS_REV=.*/FIRMWARE_BUILDS_REV=${{ github.event.inputs.firmwarever }}/g" ./versions.inc
-        #echo '更新版本号时间'
+        sed -i "s/FIRMWARE_BUILDS_REV=.*/FIRMWARE_BUILDS_REV=${{ env.firmwarever }}/g" ./versions.inc
+        echo '更新版本号时间'
         #########################################################################################
     - name: Build firmware
       run: |
-        #cd $WORK_PATH/trunk
-        #sudo ./clear_tree
-        #sudo ./build_firmware_modify ${{ env.model }} 0
-        #echo "FIRMWARE_DATEPREFIX=$(date +"%Y%m%d")" >> $GITHUB_ENV
-        #echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        cd $WORK_PATH/trunk
+        sudo ./clear_tree
+        sudo ./build_firmware_modify ${{ env.model }} 0
+        echo "FIRMWARE_DATEPREFIX=$(date +"%Y%m%d")" >> $GITHUB_ENV
+        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
     - name: Organize firmware files
       run: |
-        #mkdir -p $FIRMWARE_PATH/
-        #cd $WORK_PATH/trunk/images
-        #for firmwarefile in $(ls *.trx)
-        #do sudo mv $firmwarefile $FIRMWARE_PATH/${FIRMWARE_DATEPREFIX}"_"${FIRMWARE_AUTHOR}"_"${{ env.model }}"_kernal4.4.trx"
-        #done
-        #cd $FIRMWARE_PATH
-        #echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        #echo "STATUS=success" >> $GITHUB_ENV
+        mkdir -p $FIRMWARE_PATH/
+        cd $WORK_PATH/trunk/images
+        for firmwarefile in $(ls *.trx)
+        do sudo mv $firmwarefile $FIRMWARE_PATH/${FIRMWARE_DATEPREFIX}"_"${FIRMWARE_AUTHOR}"_"${{ env.model }}"_"${{ env.firmwarever }}"_kernal4.4.trx"
+        done
+        cd $FIRMWARE_PATH
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "STATUS=success" >> $GITHUB_ENV
     - name : Upload packages
       uses: actions/upload-artifact@main
       if: env.STATUS == 'success'
       with:
-        name: ${{ env.model }}_Padavan44_${{ env.FILE_DATE }}
+        name: ${{ env.model }}_${{ env.firmwarever }}_Padavan44_${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
     - name: Remove obsolete firmwares on artifacts
       uses: Bonnie2980/gha-remove-artifacts@master
