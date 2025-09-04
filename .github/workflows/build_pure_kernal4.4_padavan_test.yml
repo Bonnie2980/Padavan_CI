@@ -52,11 +52,11 @@ jobs:
 ]
     steps:
     - uses: actions/checkout@main
-        with:
-          fetch-depth: 1
+      with:
+        fetch-depth: 1
     - uses: hendrikmuhs/ccache-action@main
-        with:
-          key: "${{ github.event.inputs.target }}"
+      with:
+        key: ${{ github.event.inputs.target }}
     - uses: Bonnie2980/variable-mapper@master
       id: export
       with:
