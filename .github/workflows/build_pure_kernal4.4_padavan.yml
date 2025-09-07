@@ -85,7 +85,7 @@ jobs:
     - name: Customization
       run: |
         cd $WORK_PATH/trunk
-        bash ./setlanip.sh ./user/shared/defaults.h ./user/www/n56u_rainbow/Restarting.asp ./user/www/dict/CN.dict ${{ env.lanip }}
+        bash ./setlanip.sh ./user/shared/defaults.h ./user/www/n56u_rainbow/restarting.asp ./user/www/dict/CN.dict ${{ env.lanip }}
         bash ./setaccount.sh ${{ env.signaccount }} ${{ env.signpassword }} ./user/shared/defaults.h
         bash ./setwifi.sh ${{ env.wifi2gssid }} ${{ env.wifi5gssid }} ${{ env.wifi2gpsk }} ${{ env.wifi5gpsk }} ./user/shared/defaults.h
     - name: Parse json string of include plugins
