@@ -9,6 +9,7 @@ on:
         options:
         - KONKA_KOMI-A8
         - MAIPU_MPAX18
+        - H3C_NX18Plus
         default: MAIPU_MPAX18
       plugins:
         description: 'json format string of include configs'
@@ -47,6 +48,9 @@ jobs:
             },
             "MAIPU_MPAX18": {
               "model": "MAIPU-MPAX18"
+            },
+            "H3C_NX18Plus": {
+              "model": "NX18Plus"
             },
             ".*": {
               "model": "KOMI-A8"
