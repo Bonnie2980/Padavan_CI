@@ -112,7 +112,7 @@ jobs:
         cd $WORK_PATH/trunk/user/www
         sed -i "s/WEBUI_NAME=n56u_ribbon_fixed/WEBUI_NAME=n56u_rainbow/g" ./Makefile
     - name: Change specialized brand logo image
-      if: env.changebrandlogo == 'y' && env.specializedlogo == 'n'
+      if: env.changebrandlogo == 'y'
       run: |
         cd $WORK_PATH/trunk
         if [ "${{ env.rainbowui }}" = "y" ]; then
@@ -240,6 +240,7 @@ jobs:
         cd $WORK_PATH
         sudo make ${{ matrix.target }}
         echo "FIRMWARE_DATEPREFIX=$(date +"%Y%m%d")" >> $GITHUB_ENV
+        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
     - name: Organize firmware files
       id: organize
       run: |
@@ -259,8 +260,8 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.STATUS == 'success'
       with:
-        name: Padavan44-packages
-        path: ${{ env.FIRMWARE_PATH }}/*.trx
+        name: vb1980_${{ env.model }}_Padavan44_${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE }}
     - name: Remove obsolete firmwares on artifacts
       uses: Bonnie2980/gha-remove-artifacts@master
       if: env.STATUS == 'success'
