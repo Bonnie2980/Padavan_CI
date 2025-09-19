@@ -35,6 +35,7 @@ on:
         - KONKA_KOMI-A8
         - Lenovo_NEWIFI2
         - Linksys_EA7500
+        - MaiPu_MPAX18
         - Motorola_MR2600
         - Netgear_R6800
         - Netgear_R7450
@@ -194,6 +195,9 @@ jobs:
             },
             "Linksys_EA7500": {
               "model": "EA7500"
+            },
+            "MaiPu_MPAX18": {
+              "model": "MAIPU-MPAX18"
             },
             "Motorola_MR2600": {
               "model": "MR2600"
