@@ -10,6 +10,7 @@ on:
         - KONKA_KOMI-A8
         - MAIPU_MPAX18
         - H3C_NX18Plus
+        - ZTT_RX6000
         default: MAIPU_MPAX18
       plugins:
         description: 'json format string of include configs'
@@ -22,7 +23,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20250827'
+        default: '20250921'
 env:
   REPOSITORY_URL: https://github.com/Bonnie2980/meisreallyba_padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
@@ -51,6 +52,9 @@ jobs:
             },
             "H3C_NX18Plus": {
               "model": "NX18Plus"
+            },
+            "ZTT_RX6000": {
+              "model": "ZTT-RX6000"
             },
             ".*": {
               "model": "KOMI-A8"
