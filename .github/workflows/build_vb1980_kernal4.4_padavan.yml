@@ -85,10 +85,6 @@ on:
         description: 'firmware''s version'
         required: true
         default: '20250823'
-      uploadanon:
-        type: boolean
-        description: 'upload firmware to anonfiles'
-        default: 'false'
 env:
   REPOSITORY_URL: https://github.com/vb1980/padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
@@ -514,12 +510,6 @@ jobs:
       with:
         name: vb1980_${{ env.model }}_Padavan44_${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-    - name: Upload firmware to anonfiles
-      if: env.STATUS == 'success' && github.event.inputs.uploadanon == 'true'
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer anon --no-progress ${FIRMWARE} 2>&1 | tee anonfile.log
-        echo "::warning file=anonfile.com::$(cat anonfile.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")"
     - name: Remove obsolete firmwares on artifacts
       uses: Bonnie2980/gha-remove-artifacts@master
       if: env.STATUS == 'success'

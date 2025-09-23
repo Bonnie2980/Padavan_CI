@@ -47,10 +47,6 @@ on:
         description: 'firmware''s version'
         required: true
         default: '20220218'
-      uploadanon:
-        type: boolean
-        description: 'upload firmware to anonfiles'
-        default: 'false'
 env:
   REPOSITORY_URL: https://github.com/MeIsReallyBa/padavan-4.4.git
   TOOLCHAIN_URL: https://github.com/hanwckf/padavan-toolchain/releases/download/linux-4.4-v1.0/mipsel-linux-uclibc.tar.xz
@@ -61,7 +57,7 @@ env:
   FIRMWARE_PATH: /opt/firmwares
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -319,14 +315,8 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.STATUS == 'success'
       with:
-        name: ${{ env.model }}_MeIsReallyBa_Padavan44_${{ env.FILE_DATE }}
+        name: meisreallyba_${{ env.model }}_Padavan44_${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-    - name: Upload firmware to anonfiles
-      if: env.STATUS == 'success' && github.event.inputs.uploadanon == 'true'
-      run: |
-        curl -fsSL git.io/file-transfer | sh
-        ./transfer anon --no-progress ${FIRMWARE} 2>&1 | tee anonfile.log
-        echo "::warning file=anonfile.com::$(cat anonfile.log | grep -o -E "https?://[a-zA-Z0-9\.\/_&=@$%?~#-]*")"
     - name: Remove obsolete firmwares on artifacts
       uses: Bonnie2980/gha-remove-artifacts@master
       if: env.STATUS == 'success'
