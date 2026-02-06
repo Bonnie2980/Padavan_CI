@@ -11,7 +11,8 @@ on:
         - MAIPU_MPAX18
         - H3C_NX18Plus
         - ZTT_RX6000
-        default: MAIPU_MPAX18
+        - 360_T6GS
+        default: 360_T6GS
       plugins:
         description: 'json format string of include configs'
         required: true
@@ -23,7 +24,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20250921'
+        default: '20260206'
 env:
   REPOSITORY_URL: https://github.com/Bonnie2980/meisreallyba_padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
@@ -55,6 +56,9 @@ jobs:
             },
             "ZTT_RX6000": {
               "model": "ZTT-RX6000"
+            },
+            "360_T6GS": {
+              "model": "360-T6GS"
             },
             ".*": {
               "model": "KOMI-A8"
