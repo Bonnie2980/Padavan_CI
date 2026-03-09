@@ -12,6 +12,7 @@ on:
         - H3C_NX18Plus
         - ZTT_RX6000
         - 360_T6GS
+        - JCG_Q20
         default: 360_T6GS
       plugins:
         description: 'json format string of include configs'
@@ -59,6 +60,9 @@ jobs:
             },
             "360_T6GS": {
               "model": "360-T6GS"
+            },
+            "JCG_Q20": {
+              "model": "JCG-Q20"
             },
             ".*": {
               "model": "KOMI-A8"
