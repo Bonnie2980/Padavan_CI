@@ -13,6 +13,10 @@ on:
         - ZTT_RX6000
         - 360_T6GS
         - JCG_Q20
+        - JCG_Q10Pro
+        - FCJ_GAX1800_White
+        - FCJ_GAX1800_Black
+        - HBD_WRL18M4GD
         default: 360_T6GS
       plugins:
         description: 'json format string of include configs'
@@ -63,6 +67,18 @@ jobs:
             },
             "JCG_Q20": {
               "model": "JCG-Q20"
+            },
+            "JCG_Q10Pro": {
+              "model": "JCG-Q10Pro"
+            },
+            "FCJ_GAX1800_White": {
+              "model": "JCG-GAX1800W"
+            },
+            "FCJ_GAX1800_Black": {
+              "model": "JCG-GAX1800B"
+            },
+            "HBD_WRL18M4GD": {
+              "model": "WRL18M4GD"
             },
             ".*": {
               "model": "KOMI-A8"
