@@ -43,7 +43,7 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@main
     - uses: Bonnie2980/variable-mapper@master
       id: export
       with:
@@ -79,6 +79,12 @@ jobs:
             },
             "HBD_WRL18M4GD": {
               "model": "WRL18M4GD"
+            },
+            "SIM_AX1800T": {
+              "model": "SIM-AX1800T"
+            },
+            "Har_20S2U1": {
+              "model": "Har-20S2U1"
             },
             ".*": {
               "model": "KOMI-A8"
