@@ -17,6 +17,8 @@ on:
         - FCJ_GAX1800_White
         - FCJ_GAX1800_Black
         - HBD_WRL18M4GD
+        - SIM-AX1800T
+        - Har-20S2U1
         default: 360_T6GS
       plugins:
         description: 'json format string of include configs'
