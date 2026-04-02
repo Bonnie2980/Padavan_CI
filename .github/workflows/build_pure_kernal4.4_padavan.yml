@@ -17,8 +17,8 @@ on:
         - FCJ_GAX1800_White
         - FCJ_GAX1800_Black
         - HBD_WRL18M4GD
-        - SIM-AX1800T
-        - Har-20S2U1
+        - SIM_AX1800T
+        - HAR_20S2U1
         default: 360_T6GS
       plugins:
         description: 'json format string of include configs'
@@ -85,7 +85,7 @@ jobs:
             "SIM_AX1800T": {
               "model": "SIM-AX1800T"
             },
-            "Har_20S2U1": {
+            "HAR_20S2U1": {
               "model": "Har-20S2U1"
             },
             ".*": {
