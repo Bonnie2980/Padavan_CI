@@ -74,10 +74,10 @@ jobs:
               "model": "JCG-Q10Pro"
             },
             "FCJ_GAX1800_White": {
-              "model": "JCG-GAX1800W"
+              "model": "FCJ-GAX1800W"
             },
             "FCJ_GAX1800_Black": {
-              "model": "JCG-GAX1800B"
+              "model": "FCJ-GAX1800B"
             },
             "HBD_WRL18M4GD": {
               "model": "WRL18M4GD"
