@@ -20,6 +20,7 @@ on:
         - HBD_WRL18M4GD
         - SIM_AX1800T
         - HAR_20S2U1
+        - TP-Link_WMC180
         default: 360_T6GS
       plugins:
         description: 'json format string of include configs'
@@ -91,6 +92,9 @@ jobs:
             },
             "HAR_20S2U1": {
               "model": "Har-20S2U1"
+            },
+            "TP-LINK_WMC180": {
+              "model": "TP_WMC180"
             },
             ".*": {
               "model": "KOMI-A8"
