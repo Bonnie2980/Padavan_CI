@@ -21,7 +21,7 @@ on:
         - SIM_AX1800T
         - HAR_20S2U1
         - TP-Link_WMC180
-        default: 360_T6GS
+        default: TP-Link_WMC180
       plugins:
         description: 'json format string of include configs'
         required: true
@@ -29,11 +29,11 @@ on:
       customization:
         description: 'json format string of customized configs'
         required: true
-        default: '{"lanip":"192.168.2.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"","wifi5gssid":"","wifi2gpsk":"","wifi5gpsk":""}'
+        default: '{"lanip":"192.168.10.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"","wifi5gssid":"","wifi2gpsk":"","wifi5gpsk":""}'
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: '20260206'
+        default: '20261118'
 env:
   REPOSITORY_URL: https://github.com/Bonnie2980/meisreallyba_padavan-4.4.git
   WORK_PATH: /opt/padavan-4.4
@@ -93,7 +93,7 @@ jobs:
             "HAR_20S2U1": {
               "model": "Har-20S2U1"
             },
-            "TP-LINK_WMC180": {
+            "TP-Link_WMC180": {
               "model": "TP_WMC180"
             },
             ".*": {
