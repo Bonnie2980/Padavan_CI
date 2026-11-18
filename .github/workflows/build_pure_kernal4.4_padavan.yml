@@ -94,7 +94,7 @@ jobs:
               "model": "Har-20S2U1"
             },
             "TP-Link_WMC180": {
-              "model": "TP_WMC180"
+              "model": "TP-WMC180"
             },
             ".*": {
               "model": "KOMI-A8"
