@@ -215,7 +215,7 @@ jobs:
         name: ${{ env.model }}_Padavan44_${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
     - name: Remove obsolete firmwares on artifacts
-      uses: Bonnie2980/gha-remove-artifacts@master
+      uses: Bonnie2980/gha-remove-artifacts@main
       if: env.STATUS == 'success'
       with:
         age: '1 day'
